@@ -2,6 +2,7 @@
 
 namespace App\vendor;
 
+use Illuminate\Support\Facades\DB;
 use Stancl\Tenancy\Concerns\CreatesDatabaseUsers;
 use Stancl\Tenancy\Contracts\ManagesDatabaseUsers;
 use Stancl\Tenancy\DatabaseConfig;
@@ -14,6 +15,7 @@ class PermissionControlledSQLServerDatabaseManager extends SqlServerDatabaseMana
 
     public function createUser(DatabaseConfig $databaseConfig): bool
     {
+        $central = DB::connection()->getDatabaseName();
         $database = $databaseConfig->getName();
         $username = $databaseConfig->getUsername();
         $hostname = $databaseConfig->connection()['host'];
@@ -22,10 +24,9 @@ class PermissionControlledSQLServerDatabaseManager extends SqlServerDatabaseMana
         $GrantPermissions = "Use {$database}
         CREATE LOGIN {$username} WITH PASSWORD = '{$password}'
         CREATE USER {$username} FOR LOGIN {$username}
-        ALTER ROLE db_owner ADD MEMBER {$username}  Use landlord";
+        ALTER ROLE db_owner ADD MEMBER {$username}  Use {$central}";
 
         return $this->database()->statement($GrantPermissions);
-
     }
 
     public function deleteUser(DatabaseConfig $databaseConfig): bool
