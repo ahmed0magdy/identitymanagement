@@ -26,9 +26,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('roles', RoleController::class);
 
-Route::get('permissionsToRole/{id}',[RoleController::class,'assginPermissionsToRole']);
-Route::get('permissionsToUser/{id}',[RoleController::class,'assginPermissionsToUser']);
-Route::get('RolesToUser/{id}',[RoleController::class,'assginRolesToUser']);
-Route::get('permissions',[RoleController::class,'getallPermissions']);
-Route::get('permissions/{id}',[RoleController::class,'getUserPermissions']);
+Route::post('permissionsToRole/{role}',[RoleController::class,'assignPermissionsToRole']);
+Route::post('permissionsToUser/{user}',[RoleController::class,'assignPermissionsToUser']);
+Route::post('RolesToUser/{user}',[RoleController::class,'assignRolesToUser']);
+Route::get('permissions',[RoleController::class,'getAllPermissions']);
+Route::get('permissions/{user}',[RoleController::class,'getUserPermissions']);
+
+Route::post('removeUserRoles/{user}',[RoleController::class,'removeUserRole']);
+Route::post('removeUserPermissions/{user}',[RoleController::class,'removeUserPermissions']);
+Route::post('removeRolePermissions/{role}',[RoleController::class,'removeRolePermissions']);
+
+
 
