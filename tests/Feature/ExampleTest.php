@@ -7,6 +7,7 @@ use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
+    /** @test */
     public function testTheApplicationReturnsASuccessfulResponse()
     {
         $response = $this->get('/');
