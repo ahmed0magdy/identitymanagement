@@ -11,8 +11,6 @@ class PermissionControlledSQLServerDatabaseManager extends SqlServerDatabaseMana
 {
     use CreatesDatabaseUsers;
 
-
-
     public function createUser(DatabaseConfig $databaseConfig): bool
     {
         $central = DB::connection()->getDatabaseName();
@@ -31,10 +29,11 @@ class PermissionControlledSQLServerDatabaseManager extends SqlServerDatabaseMana
 
     public function deleteUser(DatabaseConfig $databaseConfig): bool
     {
+        $central = DB::connection()->getDatabaseName();
         return $this->database()->statement("Use'{$databaseConfig->getName()}'
         DROP USER IF EXISTS '{$databaseConfig->getUsername()}'
         DROP LOGIN '{$databaseConfig->getUsername()}'
-        Use landlord");
+        Use {$central}");
     }
     public function userExists(string $username): bool
     {
