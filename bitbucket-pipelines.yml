@@ -70,17 +70,3 @@ pipelines:
 
           #Run Test Suite
           - phpdbg -qrr vendor/bin/phpunit
-        #          - php -dpcov.enabled=1 -dpcov.directory=. -dpcov.exclude="~vendor~" ./vendor/bin/phpunit
-        #          - php coverage-checker.php clover.xml 65
-        services:
-          #Add MySql Database
-          - postgres
-    # Additional Manual Step for Deployer if Needed.
-definitions:
-  services:
-    postgres:
-      image: mcr.microsoft.com/mssql/server
-      environment:
-        POSTGRES_DB: 'laravel'
-        POSTGRES_USER: sail
-        POSTGRES_PASSWORD: password
