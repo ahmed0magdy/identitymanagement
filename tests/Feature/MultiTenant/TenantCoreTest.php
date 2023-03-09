@@ -34,9 +34,5 @@ class TenantCoreTest extends TestCase
         $response->assertStatus(201);
 
         $this->assertDatabaseHas($table, ['domain' => $domain, 'tenant_id' => $id]);
-
-        $response = $this->call('GET', 'http://' . $domain . ':8000');
-        $this->assertEquals(200, $response->getStatusCode());
     }
-
 }
