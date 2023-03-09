@@ -69,7 +69,7 @@ pipelines:
           - ./vendor/bin/phpcs --standard=PSR12 --warning-severity=6 app/ routes/ tests/
 
           #Run Test Suite
-          - .vendor/bin/phpunit
+          - php artisan test
         #          - php -dpcov.enabled=1 -dpcov.directory=. -dpcov.exclude="~vendor~" ./vendor/bin/phpunit
         #          - php coverage-checker.php clover.xml 65
         services:
