@@ -33,6 +33,15 @@ pipelines:
           - docker-php-ext-install pdo pdo_pgsql
           - apt-get install -qy postgresql-client
 
+          #Install SqlSrv
+          - curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+          - curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
+          - apt-get update
+          - ACCEPT_EULA=Y apt-get -y --no-install-recommends --allow-releaseinfo-change install msodbcsql19 unixodbc-dev
+          - pecl install sqlsrv
+          - pecl install pdo_sqlsrv
+          - docker-php-ext-enable sqlsrv pdo_sqlsrv
+
           #Install Crypt
           - apt-get install -qy libmcrypt-dev
 
@@ -40,14 +49,14 @@ pipelines:
           - docker-php-ext-install bcmath
 
           #Copy .env.example to .env
-          - cp -f .env.pipeline .env
+          - cp -f .env.pipelines .env
 
           #Install Composer
           - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
           - composer install
 
           #Migrate Database
-          - touch database/database.sqlite
+          - touch database/database.sql
           - php artisan key:generate
           - php artisan migrate
           #          - php artisan l5-swagger:generate
@@ -61,13 +70,13 @@ pipelines:
         #          - php coverage-checker.php clover.xml 65
         services:
           #Add MySql Database
-          - postgres
+          - sqlsrv
 
 definitions:
   services:
-    postgres:
-      image: postgres
+    sqlsrv:
+      image: mcr.microsoft.com/mssql/server:2019-latest
       environment:
-        POSTGRES_DB: 'laravel'
-        POSTGRES_USER: sail
-        POSTGRES_PASSWORD: password
+        DB_DATABASE: 'homestead'
+        DB_USERNAME: 'homestead'
+        DB_PASSWORD: 'secret'
