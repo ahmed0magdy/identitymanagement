@@ -41,7 +41,7 @@ pipelines:
           - curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
           - curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
           - apt-get update
-          - ACCEPT_EULA=Y apt-get -y --no-install-recommends install msodbcsql18 mssql-tools unixodbc-dev
+          - ACCEPT_EULA=Y apt-get -y --no-install-recommends install msodbcsql18 unixodbc-dev
           - pecl install sqlsrv
           - pecl install pdo_sqlsrv
           - docker-php-ext-enable sqlsrv pdo_sqlsrv
@@ -74,13 +74,14 @@ pipelines:
         #          - php coverage-checker.php clover.xml 65
         services:
           #Add MySql Database
-          - mssql
+          - database
     # Additional Manual Step for Deployer if Needed.
 definitions:
   services:
-    mssql:
+    database:
       image: mcr.microsoft.com/mssql/server:2022-latest
       environment:
         ACCEPT_EULA: "Y"
         SA_PASSWORD: "secret"
-        port: "1433"
+        ports: "1433:1433"
+        volumes: "./mssql/data:/var/opt/mssql/data"
