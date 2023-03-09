@@ -1,35 +1,84 @@
-# This is an example Starter pipeline configuration
-# Use a skeleton to build, test and deploy using manual and parallel steps
-# -----
-# You can specify a custom docker image from Docker Hub as your build environment.
-
-image: atlassian/default-image:3
-
+image: php:8.1.0-fpm
 pipelines:
   default:
-    - parallel:
-      - step:
-          name: 'Build and Test'
-          script:
-            - echo "Your build and test goes here..."
-      - step:
-          name: 'Lint'
-          script:
-            - echo "Your linting goes here..."
-      - step:
-          name: 'Security scan'
-          script:
-            - echo "Your security scan goes here..."
+    # Not needed unless you're doing feature tests.
+    #    - step:
+    #        name: Build
+    #        image: node:8.9.4
+    #        caches:
+    #          - node
+    #        script:
+    #          - npm install
+    #          - npm run prod
+    #        artifacts:
+    #          - public/**
+    - step:
+        name: Test
+        caches:
+          - composer
+        artifacts:
+          - storage/**
+          - vendor/**
+          - public/**
+          - .env
+        script:
+          #Update Image
+          - apt-get update
 
-    # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
-    - step:
-        name: 'Deployment to Staging'
-        deployment: staging
-        script:
-          - echo "Your deployment to staging script goes here..."
-    - step:
-        name: 'Deployment to Production'
-        deployment: production
-        trigger: 'manual'
-        script:
-          - echo "Your deployment to production script goes here..."
+          #Install Zip
+          - apt-get install -qy zlib1g-dev zip unzip libzip-dev libpq-dev
+          - pecl install pcov && docker-php-ext-enable pcov
+          - docker-php-ext-install zip
+
+          #Install Git
+          - apt-get install -qy git
+          - apt-get install -qy curl
+
+          #Install SqlSrv
+          - apt-get update && apt-get install -y gnupg2
+          - curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+          - curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
+          - apt-get update
+          - ACCEPT_EULA=Y apt-get -y --no-install-recommends install msodbcsql19 unixodbc-dev
+          - pecl install sqlsrv
+          - pecl install pdo_sqlsrv
+          - docker-php-ext-enable sqlsrv pdo_sqlsrv
+
+          #Install Crypt
+          - apt-get install -qy libmcrypt-dev
+
+          #Install Composer Platform Reqs
+          - docker-php-ext-install bcmath
+
+          #Copy .env.example to .env
+          - cp -f .env.pipeline .env
+
+          #Install Composer
+          - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+          - composer install
+
+          #Migrate Database
+          - touch database/database.sql
+          - php artisan key:generate
+          - php artisan migrate
+          #          - php artisan l5-swagger:generate
+
+          #Run phpcs
+          - ./vendor/bin/phpcs --standard=PSR12 --warning-severity=6 app/ routes/ tests/
+
+          #Run Test Suite
+          - phpdbg -qrr vendor/bin/phpunit
+        #          - php -dpcov.enabled=1 -dpcov.directory=. -dpcov.exclude="~vendor~" ./vendor/bin/phpunit
+        #          - php coverage-checker.php clover.xml 65
+        services:
+          #Add sqlsrv Database
+          - sqlsrv
+
+definitions:
+  services:
+    sqlsrv:
+      image: mcr.microsoft.com/mssql/server:2019-latest
+      environment:
+        SQLSRV_DB: 'laravel'
+        SQLSRV_USER: sa
+        SQLSRV_PASSWORD: root
