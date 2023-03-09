@@ -39,7 +39,7 @@ pipelines:
           - apt-get install -qy postgresql-client
           - apt-get update && apt-get install -y gnupg2
           - curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-          - curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
+          - curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
           - apt-get update
           - ACCEPT_EULA=Y apt-get -y --no-install-recommends install msodbcsql17 unixodbc-dev
           - pecl install sqlsrv
@@ -79,7 +79,7 @@ pipelines:
 definitions:
   services:
     database:
-      image: mcr.microsoft.com/mssql/server:2019-latest
+      image: justin2004/mssql_server_tiny
       environment:
         ACCEPT_EULA: "Y"
         MSSQL_SA_PASSWORD: "SecretGamedAwe69@96"
