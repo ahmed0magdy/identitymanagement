@@ -35,13 +35,14 @@ pipelines:
           - apt-get install -qy curl
 
           #Install MySql
+          - lsb_release -a
           - docker-php-ext-install pdo pdo_pgsql
           - apt-get install -qy postgresql-client
           - apt-get update && apt-get install -y gnupg2
           - curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
-          - curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
+          - curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
           - apt-get update
-          - ACCEPT_EULA=Y apt-get -y --no-install-recommends install msodbcsql19 unixodbc-dev
+          - ACCEPT_EULA=Y apt-get -y --no-install-recommends install msodbcsql22 unixodbc-dev
           - pecl install sqlsrv
           - pecl install pdo_sqlsrv
           - docker-php-ext-enable sqlsrv pdo_sqlsrv
