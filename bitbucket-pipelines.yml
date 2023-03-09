@@ -82,5 +82,5 @@ definitions:
       image: mcr.microsoft.com/mssql/server:2022-latest
       environment:
         ACCEPT_EULA: "Y"
-        SA_PASSWORD: "homestead"
-        ports: "1433:1433"
+        SA_PASSWORD: "secret"
+        port: "1433"
