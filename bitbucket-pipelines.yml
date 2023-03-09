@@ -4,13 +4,13 @@ pipelines:
   default:
     - step:
         script:
-          - apt-get update && apt-get install -qy git curl libmcrypt-dev
+          - apt-get --allow-releaseinfo-change update && apt-get --allow-releaseinfo-change install -qy git curl libmcrypt-dev
           - yes | pecl install mcrypt-1.0.1
-          - apt-get update && apt-get install -y gnupg2
+          - apt-get --allow-releaseinfo-change update && apt-get --allow-releaseinfo-change install -y gnupg2
           - curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
           - curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
-          - apt-get update
-          - ACCEPT_EULA=Y apt-get -y --no-install-recommends install msodbcsql19 unixodbc-dev
+          - apt-get --allow-releaseinfo-change update
+          - ACCEPT_EULA=Y apt-get -y --no-install-recommends --allow-releaseinfo-change install msodbcsql19 unixodbc-dev
           - pecl install sqlsrv
           - pecl install pdo_sqlsrv
           - docker-php-ext-enable sqlsrv pdo_sqlsrv
