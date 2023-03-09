@@ -79,7 +79,7 @@ pipelines:
 definitions:
   services:
     postgres:
-      image: docker pull mcr.microsoft.com/mssql/server
+      image: mcr.microsoft.com/mssql/server
       environment:
         POSTGRES_DB: 'laravel'
         POSTGRES_USER: sail
