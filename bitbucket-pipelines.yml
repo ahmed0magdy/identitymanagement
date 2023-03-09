@@ -2,70 +2,27 @@ image: php:8.1.0-fpm
 
 pipelines:
   default:
-    # Not needed unless you're doing feature tests.
     - step:
-        name: Node
-        image: node:8.9.4
-        caches:
-          - node
         script:
-          - npm install
-        artifacts:
-          - public/**
-
-    - step:
-        name: App Build
-        caches:
-          - composer
-        artifacts:
-          - storage/**
-          - vendor/**
-          - public/**
-          - .env
-        script:
-          #Update Image
-          - apt-get --allow-releaseinfo-change update apt-get install -qy git zip unzip zlib1g-dev curl libmcrypt-dev libxml2-dev wget libzip-dev libpq-dev
+          - apt-get update && apt-get install -qy git curl libmcrypt-dev
           - yes | pecl install mcrypt-1.0.1
-
-          #Install Zip
-          - pecl install pcov && docker-php-ext-enable pcov
-          - docker-php-ext-install zip
-
-          #Install SqlSrv
-          - apt-get --allow-releaseinfo-change update && apt-get install -y gnupg2
+          - apt-get update && apt-get install -y gnupg2
           - curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
           - curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
-          - apt-get --allow-releaseinfo-change update
+          - apt-get update
           - ACCEPT_EULA=Y apt-get -y --no-install-recommends install msodbcsql19 unixodbc-dev
           - pecl install sqlsrv
           - pecl install pdo_sqlsrv
           - docker-php-ext-enable sqlsrv pdo_sqlsrv
-
-          #Install Composer Platform Reqs
-          - docker-php-ext-install bcmath
-
-          #Copy .env.example to .env
-          - cp -f .env.example .env
-
-          #Install Composer
           - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
           - composer install
-
-          #Migrate Database
-          - touch database/database.sql
-          - php artisan key:generate
+          - ln -f -s .env.pipelines .env
           - php artisan migrate
-          #          - php artisan l5-swagger:generate
-
-          #Run phpcs
-          - ./vendor/bin/phpcs --standard=PSR12 --warning-severity=6 app/ routes/ tests/
-
-          #Run Test Suite
-          - phpdbg -qrr vendor/bin/phpunit
-        #          - php -dpcov.enabled=1 -dpcov.directory=. -dpcov.exclude="~vendor~" ./vendor/bin/phpunit
-        #          - php coverage-checker.php clover.xml 65
+          - php artisan serve &
+          - sleep 5
+          - ./vendor/bin/phpunit
+          - curl -vk http://localhost:8000
         services:
-          #Add sqlsrv Database
           - sqlsrv
 
 definitions:
@@ -73,6 +30,7 @@ definitions:
     sqlsrv:
       image: mcr.microsoft.com/mssql/server:2019-latest
       environment:
-        SQLSRV_DB: 'laravel'
-        SQLSRV_USER: sa
-        SQLSRV_PASSWORD: root
+        MYSQL_DATABASE: 'homestead'
+        MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+        MYSQL_USER: 'homestead'
+        MYSQL_PASSWORD: 'secret'
