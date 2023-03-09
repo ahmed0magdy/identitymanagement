@@ -74,16 +74,13 @@ pipelines:
         #          - php coverage-checker.php clover.xml 65
         services:
           #Add MySql Database
-          - sqlsrv
+          - postgres
     # Additional Manual Step for Deployer if Needed.
 definitions:
   services:
-    sqlsrv:
-      image: mcr.microsoft.com/mssql/server:2022-latest
+    postgres:
+      image: docker pull mcr.microsoft.com/mssql/server
       environment:
-#        POSTGRES_DB: 'laravel'
-#        POSTGRES_USER: sail
-#        POSTGRES_PASSWORD: password
-        DB_DATABASE: 'homestead'
-        DB_USERNAME: homestead
-        DB_PASSWORD: secret
+        POSTGRES_DB: 'laravel'
+        POSTGRES_USER: sail
+        POSTGRES_PASSWORD: password
