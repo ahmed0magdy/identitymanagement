@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 class ExampleTest extends TestCase
 {
     /** @test */
-    public function testThatTrueIsTrue(): never
+    public function testThatTrueIsTrue()
     {
         $this->assertTrue(true);
     }
