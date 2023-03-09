@@ -8,7 +8,7 @@ use Tests\TestCase;
 class ExampleTest extends TestCase
 {
     /** @test */
-    public function testTheApplicationReturnsASuccessfulResponse()
+    public function testTheApplicationReturnsASuccessfulResponse(): never
     {
         $response = $this->get('/');
 
