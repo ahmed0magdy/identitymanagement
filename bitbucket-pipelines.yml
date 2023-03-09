@@ -72,16 +72,3 @@ pipelines:
           - phpdbg -qrr vendor/bin/phpunit
         #          - php -dpcov.enabled=1 -dpcov.directory=. -dpcov.exclude="~vendor~" ./vendor/bin/phpunit
         #          - php coverage-checker.php clover.xml 65
-        services:
-          #Add MySql Database
-          - database
-    # Additional Manual Step for Deployer if Needed.
-definitions:
-  services:
-    database:
-      image: mcr.microsoft.com/mssql/server:2022-latest
-      environment:
-        ACCEPT_EULA: "Y"
-        SA_PASSWORD: "secret"
-        ports: "1433:1433"
-        volumes: "./mssql/data:/var/opt/mssql/data"
