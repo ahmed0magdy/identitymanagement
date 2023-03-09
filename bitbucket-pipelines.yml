@@ -35,7 +35,6 @@ pipelines:
           - apt-get install -qy curl
 
           #Install MySql
-          - lsb_release -a
           - docker-php-ext-install pdo pdo_pgsql
           - apt-get install -qy postgresql-client
           - apt-get update && apt-get install -y gnupg2
