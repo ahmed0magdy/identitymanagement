@@ -26,7 +26,6 @@ pipelines:
           - docker-php-ext-install zip
 
           #Install Git
-          - apt-get install -qy git
           - apt-get install -qy curl
 
           #Install MySql
