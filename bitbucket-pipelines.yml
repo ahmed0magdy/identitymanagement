@@ -79,7 +79,7 @@ pipelines:
 definitions:
   services:
     sqlsrv:
-      image: postgres
+      image: mcr.microsoft.com/mssql/server:2022-latest
       environment:
 #        POSTGRES_DB: 'laravel'
 #        POSTGRES_USER: sail
