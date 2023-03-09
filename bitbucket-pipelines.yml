@@ -16,6 +16,11 @@ pipelines:
         name: Test
         caches:
           - composer
+        artifacts:
+          - storage/**
+          - vendor/**
+          - public/**
+          - .env
         script:
           #Update Image
           - apt-get update
@@ -26,6 +31,7 @@ pipelines:
           - docker-php-ext-install zip
 
           #Install Git
+          - apt-get install -qy git
           - apt-get install -qy curl
 
           #Install MySql
@@ -46,7 +52,7 @@ pipelines:
           - composer install
 
           #Migrate Database
-          - touch database/database.sql
+          - touch database/database.sqlite
           - php artisan key:generate
           - php artisan migrate
           #          - php artisan l5-swagger:generate
@@ -60,13 +66,13 @@ pipelines:
         #          - php coverage-checker.php clover.xml 65
         services:
           #Add MySql Database
-          - sqlsrv
-
+          - postgres
+    # Additional Manual Step for Deployer if Needed.
 definitions:
   services:
-    sqlsrv:
-      image: mcr.microsoft.com/mssql/server:2019-latest
+    postgres:
+      image: postgres
       environment:
-        DB_DATABASE: 'homestead'
-        DB_USERNAME: 'homestead'
-        DB_PASSWORD: 'secret'
+        POSTGRES_DB: 'laravel'
+        POSTGRES_USER: sail
+        POSTGRES_PASSWORD: password
