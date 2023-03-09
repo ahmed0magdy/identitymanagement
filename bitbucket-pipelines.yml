@@ -84,4 +84,3 @@ definitions:
         ACCEPT_EULA: "Y"
         SA_PASSWORD: "homestead"
         ports: "1433:1433"
-        volumes: "./drive:/var/opt/mssql"
