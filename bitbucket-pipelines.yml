@@ -82,4 +82,4 @@ definitions:
       image: mcr.microsoft.com/mssql/server:2019-latest
       environment:
         ACCEPT_EULA: "Y"
-        MSSQL_SA_PASSWORD: "SecretGamedAwe"
+        MSSQL_SA_PASSWORD: "SecretGamedAwe69@96"
