@@ -1,4 +1,4 @@
-image: php:7.2-fpm
+image: php:8.1.0-fpm
 
 pipelines:
   default:
@@ -24,7 +24,7 @@ pipelines:
           - .env
         script:
           #Update Image
-          - apt-get update
+          - apt-get update --allow-releaseinfo-change
 
           #Install Zip
           - apt-get install -qy zlib1g-dev zip unzip libzip-dev libpq-dev
@@ -36,10 +36,10 @@ pipelines:
           - apt-get install -qy curl
 
           #Install SqlSrv
-          - apt-get update && apt-get install -y gnupg2
+          - apt-get update --allow-releaseinfo-change && apt-get install -y gnupg2
           - curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
           - curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
-          - apt-get update
+          - apt-get update --allow-releaseinfo-change
           - ACCEPT_EULA=Y apt-get -y --no-install-recommends install msodbcsql19 unixodbc-dev
           - pecl install sqlsrv
           - pecl install pdo_sqlsrv
