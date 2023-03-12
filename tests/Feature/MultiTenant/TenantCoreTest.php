@@ -14,7 +14,7 @@ class TenantCoreTest extends TestCase
      *
      * @return void
      */
-    public function test_that_tenant_is_creatable(): void
+    public function testThatTenantIsCreatable(): void
     {
         $username = Str::random(6);
         $password = Str::random(12);
