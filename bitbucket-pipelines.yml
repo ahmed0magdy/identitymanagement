@@ -1,17 +1,6 @@
 image: php:8.1.0-fpm
 pipelines:
   default:
-    # Not needed unless you're doing feature tests.
-    #    - step:
-    #        name: Build
-    #        image: node:8.9.4
-    #        caches:
-    #          - node
-    #        script:
-    #          - npm install
-    #          - npm run prod
-    #        artifacts:
-    #          - public/**
     - step:
         name: Test
         caches:
@@ -55,6 +44,7 @@ pipelines:
           #Copy .env.example to .env
           - cp .env.pipelines .env
           - cp .env.pipelines .env.testing
+
           - sed -i 's/APP_KEY=/APP_KEY=base64:7DmiDoAFOKvUa9DajFc5andFGB1oel+\/O494dI+Hqno=/g' ".env.testing"
           - sed -i 's/APP_ENV=local/APP_ENV=testing/g' ".env.testing"
 
@@ -66,6 +56,7 @@ pipelines:
           - touch database/database.sqlite
           - php artisan key:generate
           - php artisan migrate
+          - php artisan config:cache --env=testing
           #          - php artisan l5-swagger:generate
 
           #Run phpcs
