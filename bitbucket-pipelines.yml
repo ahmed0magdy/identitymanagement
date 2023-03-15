@@ -53,8 +53,10 @@ pipelines:
           - docker-php-ext-install bcmath
 
           #Copy .env.example to .env
-          - cp -f .env.pipelines .env
-          - cp -f .env.pipelines .env.testing
+          - cp .env.pipelines .env
+          - cp .env.pipelines .env.testing
+          - sed -i 's/APP_KEY=/APP_KEY=base64:7DmiDoAFOKvUa9DajFc5andFGB1oel+\/O494dI+Hqno=/g' ".env.testing"
+          - sed -i 's/APP_ENV=local/APP_ENV=testing/g' ".env.testing"
 
           #Install Composer
           - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
