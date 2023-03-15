@@ -35,6 +35,9 @@ pipelines:
           - pecl install pdo_sqlsrv
           - docker-php-ext-enable sqlsrv pdo_sqlsrv
 
+          - sleep 5
+          - sqlcmd -S localhost -U sa -P "SecretGamedAwe69@96"
+
           #Install Crypt
           - apt-get install -qy libmcrypt-dev
 
