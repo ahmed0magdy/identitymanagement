@@ -54,6 +54,7 @@ pipelines:
 
           #Copy .env.example to .env
           - cp -f .env.pipelines .env
+          - cp -f .env.pipelines .env.testing
 
           #Install Composer
           - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
