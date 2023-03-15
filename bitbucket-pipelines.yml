@@ -36,9 +36,9 @@ pipelines:
           - docker-php-ext-enable sqlsrv pdo_sqlsrv
 
           - sleep 5
-          - sqlcmd -Q "CREATE DATABASE landlord"
+          - /opt/mssql-tools/bin/sqlcmd -Q "CREATE DATABASE landlord"
           - sleep 5
-          - sqlcmd -Q "CREATE DATABASE landlord_testing"
+          - /opt/mssql-tools/bin/sqlcmd -Q "CREATE DATABASE landlord_testing"
 
           #Install Crypt
           - apt-get install -qy libmcrypt-dev
