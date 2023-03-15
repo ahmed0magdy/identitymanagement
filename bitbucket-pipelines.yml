@@ -30,13 +30,15 @@ pipelines:
           - curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
           - curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
           - apt-get update
-          - ACCEPT_EULA=Y apt-get -y --no-install-recommends install msodbcsql17 unixodbc-dev
+          - ACCEPT_EULA=Y apt-get -y --no-install-recommends install msodbcsql17 mssql-tools unixodbc-dev
           - pecl install sqlsrv
           - pecl install pdo_sqlsrv
           - docker-php-ext-enable sqlsrv pdo_sqlsrv
 
           - sleep 5
-          - sqlcmd -S localhost -U sa -P "SecretGamedAwe69@96"
+          - sqlcmd -Q "CREATE DATABASE landlord"
+          - sleep 5
+          - sqlcmd -Q "CREATE DATABASE landlord_testing"
 
           #Install Crypt
           - apt-get install -qy libmcrypt-dev
@@ -50,6 +52,7 @@ pipelines:
 
           - sed -i 's/APP_KEY=/APP_KEY=base64:7DmiDoAFOKvUa9DajFc5andFGB1oel+\/O494dI+Hqno=/g' ".env.testing"
           - sed -i 's/APP_ENV=local/APP_ENV=testing/g' ".env.testing"
+          - sed -i 's/DB_DATABASE=landlord/DB_DATABASE=landlord_testing/g' ".env.testing"
 
           #Install Composer
           - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer

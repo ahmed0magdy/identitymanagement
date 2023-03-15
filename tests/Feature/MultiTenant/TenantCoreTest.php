@@ -16,8 +16,8 @@ class TenantCoreTest extends TestCase
      */
     public function testThatTenantIsCreatable(): void
     {
-        $username = Str::random(6);
-        $password = Str::random(12);
+        $username = "test";
+        $password = "SecretGamedAwe69@96";
         $id = "d1";
         $domain = "d1.localhost";
         $table = "domains";
@@ -31,6 +31,7 @@ class TenantCoreTest extends TestCase
             'password' => $password,
             'domain' => $domain,
         ]);
+        dd($response->json());
         $response->assertStatus(201);
 
         $this->assertDatabaseHas($table, ['domain' => $domain, 'tenant_id' => $id]);
