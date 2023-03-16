@@ -31,7 +31,7 @@ class TenantCoreTest extends TestCase
             'password' => $password,
             'domain' => $domain,
         ]);
-        dd($response->json());
+
         $response->assertStatus(201);
 
         $this->assertDatabaseHas($table, ['domain' => $domain, 'tenant_id' => $id]);
