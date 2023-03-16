@@ -30,6 +30,5 @@ class AuthApiController extends Controller
     // ]);
 
     // Auth::login($user);
-
     }
 }
