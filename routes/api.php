@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TenantController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthApiController;
@@ -15,9 +16,11 @@ use App\Http\Controllers\AuthApiController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+Route::post('/create', [TenantController::class,'store']);
 
 Route::get('/auth/google/redirect', [AuthApiController::class, 'googleredirect']);
 Route::get('/auth/google/callback', [AuthApiController::class, 'googlecallaback']);
