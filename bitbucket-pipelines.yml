@@ -2,6 +2,7 @@ image: php:8.1.0-fpm
 pipelines:
   default:
     - step:
+        size: 2x
         name: Test
         caches:
           - composer
@@ -30,7 +31,7 @@ pipelines:
           - curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
           - curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
           - apt-get update
-          - ACCEPT_EULA=Y apt-get -y --no-install-recommends install msodbcsql17 mssql-tools unixodbc-dev
+          - ACCEPT_EULA=Y apt-get -y --no-install-recommends install msodbcsql18 mssql-tools unixodbc-dev
           - pecl install sqlsrv
           - pecl install pdo_sqlsrv
           - docker-php-ext-enable sqlsrv pdo_sqlsrv
@@ -79,7 +80,8 @@ pipelines:
 definitions:
   services:
     database:
-      image: justin2004/mssql_server_tiny
+      memory: 7128
+      image: mcr.microsoft.com/mssql/server:2022-latest
       environment:
         ACCEPT_EULA: "Y"
         MSSQL_SA_PASSWORD: "SecretGamedAwe69@96"
