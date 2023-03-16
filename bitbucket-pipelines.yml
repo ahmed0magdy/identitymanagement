@@ -24,9 +24,7 @@ pipelines:
           - apt-get install -qy git
           - apt-get install -qy curl
 
-          #Install MySql
-          - docker-php-ext-install pdo pdo_pgsql
-          - apt-get install -qy postgresql-client
+          #Install MSSQLSRV
           - apt-get update && apt-get install -y gnupg2
           - curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
           - curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
@@ -48,8 +46,10 @@ pipelines:
           - docker-php-ext-install bcmath
 
           #Copy .env.example to .env
-          - cp .env.pipelines .env
-          - cp .env.pipelines .env.testing
+          - cp .env.example .env.pipelines
+          - cp .env.example .env
+          - cp .env.example .env.testing
+          - sleep 5
 
           - sed -i 's/APP_KEY=/APP_KEY=base64:7DmiDoAFOKvUa9DajFc5andFGB1oel+\/O494dI+Hqno=/g' ".env.testing"
           - sed -i 's/APP_ENV=local/APP_ENV=testing/g' ".env.testing"
@@ -63,20 +63,19 @@ pipelines:
           - touch database/database.sqlite
           - php artisan key:generate
           - php artisan migrate
+          - php artisan migrate --env=testing
+          - php artisan config:cache
           - php artisan config:cache --env=testing
-          #          - php artisan l5-swagger:generate
 
           #Run phpcs
           - ./vendor/bin/phpcs --standard=PSR12 --warning-severity=6 app/ routes/ tests/
 
           #Run Test Suite
           - php artisan test
-        #          - php -dpcov.enabled=1 -dpcov.directory=. -dpcov.exclude="~vendor~" ./vendor/bin/phpunit
-        #          - php coverage-checker.php clover.xml 65
+
         services:
-          #Add MySql Database
           - database
-    # Additional Manual Step for Deployer if Needed.
+
 definitions:
   services:
     database:
