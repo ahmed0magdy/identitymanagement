@@ -10,8 +10,7 @@ use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
-
-#### roles crud ####
+    #### roles crud ####
     public function index()
     {
         //get all roles
@@ -22,7 +21,7 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         //create new role with permissions
-        $role = Role::create(['name'=>$request->role]);
+        $role = Role::create(['name' => $request->role]);
         $role->givePermissionTo($request->permissions);
         return $role;
     }
@@ -31,12 +30,12 @@ class RoleController extends Controller
     public function show($id)
     {
         $role = Role::find($id);
-        $rolePermissions =$role->getAllPermissions();
+        $rolePermissions = $role->getAllPermissions();
         return $rolePermissions;
     }
 
 
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         //edit role permissions
         $role = Role::find($id);
@@ -47,10 +46,10 @@ class RoleController extends Controller
 
     public function destroy($id)
     {
-       return DB::table("roles")->where('id', $id)->delete();
+        return DB::table("roles")->where('id', $id)->delete();
     }
 
-####Assigning endpoints####
+    ####Assigning endpoints####
     public function assignPermissionsToRole(Request $request, $id)
     {
         $role = Role::find($id);
@@ -73,7 +72,7 @@ class RoleController extends Controller
         return $user;
     }
 
-####Getting endpoints####
+    ####Getting endpoints####
     public function getAllPermissions()
     {
         $permissions = Permission::all();
@@ -84,57 +83,54 @@ class RoleController extends Controller
     {
         $user = User::find($id);
         $userPermissions = $user->getAllPermissions();
-        return$userPermissions;
+        return $userPermissions;
     }
 
 
     public function getUserRoles($id)
     {
-         $user = User::find($id);
-         // get the names of the user's roles
-         $roles = $user->getRoleNames(); // Returns a collection
-         return $roles;
+        $user = User::find($id);
+        // get the names of the user's roles
+        $roles = $user->getRoleNames(); // Returns a collection
+        return $roles;
     }
 
     public function getUsersWithGivenRole($id)
     {
-         $role = Role::find($id);
-         $users = User::role($role->name)->get(); // Returns only users with the role 'writer'
-         return $users;
+        $role = Role::find($id);
+        $users = User::role($role->name)->get(); // Returns only users with the role 'writer'
+        return $users;
     }
     public function getUsersWithGivenPermission($id)
     {
-         $permission = Permission::find($id);
-         $users = User::permission($permission->name)->get(); // Returns only users with the permission 'edit articles' (inherited or directly)
-         return $users;
+        $permission = Permission::find($id);
+        $users = User::permission($permission->name)->get(); // Returns only users with the permission 'edit articles' (inherited or directly)
+        return $users;
     }
-####Check if endpoints####
-    public function UserHasPermission($user,$permission)
+    ####Check if endpoints####
+    public function userHasPermission($user, $permission)
     {
-         $user = user::find($user);
-         $permission = Permission::find($permission);
+        $user = user::find($user);
+        $permission = Permission::find($permission);
         //  $x= ($user->hasPermissionTo($request->permission))? 'true': 'false';
-        return ($user->hasPermissionTo($permission->name))? 'true': 'false';
-
+        return ($user->hasPermissionTo($permission->name)) ? 'true' : 'false';
     }
 
-    public function UserHasRole($user,$role)
+    public function userHasRole($user, $role)
     {
-         $user = user::find($user);
-         $role = Role::find($role);
-        return ($user->hasRole($role->name))? 'true': 'false';
-
+        $user = user::find($user);
+        $role = Role::find($role);
+        return ($user->hasRole($role->name)) ? 'true' : 'false';
     }
 
-    public function RoleHasPermission($role,$permission)
+    public function roleHasPermission($role, $permission)
     {
         $role = Role::find($role);
         $permission = Permission::find($permission);
 
-        return ($role->hasPermissionTo($permission->name))? 'true': 'false';
-
+        return ($role->hasPermissionTo($permission->name)) ? 'true' : 'false';
     }
-####Removing endpoints####
+    ####Removing endpoints####
     public function removeUserRole(Request $request, $id)
     {
         $user = User::find($id);

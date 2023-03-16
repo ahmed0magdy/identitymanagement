@@ -21,10 +21,10 @@ class RoleTest extends TestCase
         parent::setUp();
         $this->permission = Permission::updateOrCreate(['name' => 'test permission that will be given to role']);
         $this->role = Role::updateOrCreate(['name' => 'testRoleThatWillGetPermission']);
-        $this->user = User::updateOrCreate(['name' => 'TestUser','email'=>'test@email.com','password'=>'password']);
+        $this->user = User::updateOrCreate(['name' => 'TestUser', 'email' => 'test@email.com', 'password' => 'password']);
     }
 
-    public function test_that_a_role_gets_a_permission()
+    public function testThatRoleGetsPermission()
     {
         $this->permission = Permission::where('id', $this->permission->id)->firstOrFail();
         $this->role = Role::where('id', $this->role->id)->firstOrFail();
@@ -35,7 +35,7 @@ class RoleTest extends TestCase
         ]);
     }
 
-    public function test_that_a_user_gets_a_permission()
+    public function testThatUserGetsPermission()
     {
         $this->permission = Permission::where('id', $this->permission->id)->firstOrFail();
         $this->user = User::where('id', $this->user->id)->firstOrFail();
@@ -46,7 +46,7 @@ class RoleTest extends TestCase
         ]);
     }
 
-    public function test_that_a_user_gets_a_role()
+    public function testThatUserGetsRole()
     {
         $this->role = Role::where('id', $this->role->id)->firstOrFail();
         $this->user = User::where('id', $this->user->id)->firstOrFail();
@@ -56,5 +56,4 @@ class RoleTest extends TestCase
             'role_id' => $this->role->id
         ]);
     }
-
 }
