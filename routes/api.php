@@ -47,3 +47,6 @@ Route::get('roleHasPermission/{role}/{permission}', [RoleController::class, 'Rol
 Route::post('removeUserRoles/{user}', [RoleController::class, 'removeUserRole']);
 Route::post('removeUserPermissions/{user}', [RoleController::class, 'removeUserPermissions']);
 Route::post('removeRolePermissions/{role}', [RoleController::class, 'removeRolePermissions']);
+
+####Tenant endpoints####
+Route::post('/create', [TenantController::class,'store']);
