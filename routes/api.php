@@ -29,10 +29,10 @@ use App\Http\Controllers\TenantController;
 
 ####Getting endpoints####
 Route::get('roles', [RoleController::class, 'index']);
-Route::get('roles/{role}', [RoleController::class, 'show']);
+Route::get('permissions/{role}', [RoleController::class, 'show']);
 
 Route::get('permissions', [RoleController::class, 'getAllPermissions']);
-Route::get('permissions/{user}', [RoleController::class, 'getUserPermissions']);
+Route::get('permissions/user/{user}', [RoleController::class, 'getUserPermissions']);
 Route::get('user/roles/{user}', [RoleController::class, 'getUserRoles']);
 Route::get('user/role/{role}', [RoleController::class, 'getUsersWithGivenRole']);
 Route::get('user/permission/{permission}', [RoleController::class, 'getUsersWithGivenPermission']);
@@ -55,7 +55,7 @@ Route::delete('roles/{role}', [RoleController::class, 'destroy']);
 
 Route::post('user/role', [RoleController::class, 'removeUserRole']);
 Route::post('user/permission', [RoleController::class, 'removeUserPermissions']);
-Route::post('role/permission/{role}', [RoleController::class, 'removeRolePermissions']);
+Route::post('role/permission', [RoleController::class, 'removeRolePermissions']);
 
 ####Tenant endpoints####
 Route::post('/create', [TenantController::class,'store']);

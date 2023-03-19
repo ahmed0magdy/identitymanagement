@@ -20,6 +20,7 @@ class RoleController extends Controller
 
     public function show(Role $role)
     {
+        // get all permissions for given role
         $rolePermissions = $role->getAllPermissions();
         return $rolePermissions;
     }
@@ -65,7 +66,7 @@ class RoleController extends Controller
     public function update(Request $request)
     {
         //edit role permissions
-        $role = Role::find($request->role);
+        $role = Role::find($request->role); // role id
         $role->syncPermissions($request->permissions); // replace all old permissions with new ones
         return $role;
     }
