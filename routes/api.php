@@ -25,29 +25,37 @@ use App\Http\Controllers\TenantController;
 //     Route::resource('roles', RoleController::class);
 //     });
 
-Route::resource('roles', RoleController::class);
+// Route::resource('roles', RoleController::class);
 
 ####Getting endpoints####
+Route::get('roles', [RoleController::class, 'index']);
+Route::get('roles/{role}', [RoleController::class, 'show']);
+
 Route::get('permissions', [RoleController::class, 'getAllPermissions']);
 Route::get('permissions/{user}', [RoleController::class, 'getUserPermissions']);
-Route::get('getUserRoles/{user}', [RoleController::class, 'getUserRoles']);
-Route::get('UsersWithGivenRole/{role}', [RoleController::class, 'getUsersWithGivenRole']);
-Route::get('UsersWithGivenPermission/{permission}', [RoleController::class, 'getUsersWithGivenPermission']);
+Route::get('user/roles/{user}', [RoleController::class, 'getUserRoles']);
+Route::get('user/role/{role}', [RoleController::class, 'getUsersWithGivenRole']);
+Route::get('user/permission/{permission}', [RoleController::class, 'getUsersWithGivenPermission']);
 
 ####Assigning endpoints####
-Route::post('permissionsToRole/{role}', [RoleController::class, 'assignPermissionsToRole']);
-Route::post('permissionsToUser/{user}', [RoleController::class, 'assignPermissionsToUser']);
-Route::post('RolesToUser/{user}', [RoleController::class, 'assignRolesToUser']);
+Route::post('roles', [RoleController::class, 'store']);
+Route::post('roles/update', [RoleController::class, 'update']); // getting all data in request instead of uri
+
+Route::post('permissions/role', [RoleController::class, 'assignPermissionsToRole']);
+Route::post('permissions/user', [RoleController::class, 'assignPermissionsToUser']);
+Route::post('roles/user', [RoleController::class, 'assignRolesToUser']);
 
 ####Check if endpoints####
-Route::get('userHasPermission/{user}/{permission}', [RoleController::class, 'UserHasPermission']);
-Route::get('userHasRole/{user}/{role}', [RoleController::class, 'UserHasRole']);
-Route::get('roleHasPermission/{role}/{permission}', [RoleController::class, 'RoleHasPermission']);
+Route::get('users/permissions/{user}/{permission}', [RoleController::class, 'UserHasPermission']);
+Route::get('users/roles/{user}/{role}', [RoleController::class, 'UserHasRole']);
+Route::get('roles/permissions/{role}/{permission}', [RoleController::class, 'RoleHasPermission']);
 
 ####Removing endpoints####
-Route::post('removeUserRoles/{user}', [RoleController::class, 'removeUserRole']);
-Route::post('removeUserPermissions/{user}', [RoleController::class, 'removeUserPermissions']);
-Route::post('removeRolePermissions/{role}', [RoleController::class, 'removeRolePermissions']);
+Route::delete('roles/{role}', [RoleController::class, 'destroy']);
+
+Route::post('user/role', [RoleController::class, 'removeUserRole']);
+Route::post('user/permission', [RoleController::class, 'removeUserPermissions']);
+Route::post('role/permission/{role}', [RoleController::class, 'removeRolePermissions']);
 
 ####Tenant endpoints####
 Route::post('/create', [TenantController::class,'store']);

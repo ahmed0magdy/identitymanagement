@@ -10,7 +10,7 @@ use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
-    #### roles crud ####
+    ####Getting endpoints####
     public function index()
     {
         //get all roles
@@ -18,6 +18,42 @@ class RoleController extends Controller
         return $roles;
     }
 
+    public function show(Role $role)
+    {
+        $rolePermissions = $role->getAllPermissions();
+        return $rolePermissions;
+    }
+    public function getAllPermissions()
+    {
+        $permissions = Permission::all();
+        return $permissions;
+    }
+
+    public function getUserPermissions(User $user)
+    {
+        $userPermissions = $user->getAllPermissions();
+        return $userPermissions;
+    }
+
+    public function getUserRoles(User $user)
+    {
+        // get the names of the user's roles
+        $roles = $user->getRoleNames(); // Returns a collection
+        return $roles;
+    }
+
+    public function getUsersWithGivenRole(Role $role)
+    {
+        $users = User::role($role->name)->get(); // Returns only users with the role 'x'
+        return $users;
+    }
+    public function getUsersWithGivenPermission(Permission $permission)
+    {
+        $users = User::permission($permission->name)->get(); // Returns only users with the permission 'y'
+        return $users;
+    }
+
+    ####Assigning endpoints####
     public function store(Request $request)
     {
         //create new role with permissions
@@ -26,128 +62,75 @@ class RoleController extends Controller
         return $role;
     }
 
-
-    public function show($id)
-    {
-        $role = Role::find($id);
-        $rolePermissions = $role->getAllPermissions();
-        return $rolePermissions;
-    }
-
-
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         //edit role permissions
-        $role = Role::find($id);
+        $role = Role::find($request->role);
         $role->syncPermissions($request->permissions); // replace all old permissions with new ones
         return $role;
     }
-
-
-    public function destroy($id)
+    public function assignPermissionsToRole(Request $request)
     {
-        return DB::table("roles")->where('id', $id)->delete();
-    }
-
-    ####Assigning endpoints####
-    public function assignPermissionsToRole(Request $request, $id)
-    {
-        $role = Role::find($id);
+        $role = Role::find($request->role); // role id
         $role->givePermissionTo($request->permissions);
         return $role;
     }
 
-    public function assignPermissionsToUser(Request $request, $id)
+    public function assignPermissionsToUser(Request $request)
     {
-        $user = User::find($id);
+        $user = User::find($request->user);
         $user->givePermissionTo($request->permissions);
         // $user->syncPermissions($request->Permissions);
         return $user;
     }
 
-    public function assignRolesToUser(Request $request, $id)
+    public function assignRolesToUser(Request $request)
     {
-        $user = User::find($id);
+        $user = User::find($request->user);
         $user->assignRole($request->roles);
         return $user;
     }
 
-    ####Getting endpoints####
-    public function getAllPermissions()
-    {
-        $permissions = Permission::all();
-        return $permissions;
-    }
 
-    public function getUserPermissions($id)
-    {
-        $user = User::find($id);
-        $userPermissions = $user->getAllPermissions();
-        return $userPermissions;
-    }
-
-
-    public function getUserRoles($id)
-    {
-        $user = User::find($id);
-        // get the names of the user's roles
-        $roles = $user->getRoleNames(); // Returns a collection
-        return $roles;
-    }
-
-    public function getUsersWithGivenRole($id)
-    {
-        $role = Role::find($id);
-        $users = User::role($role->name)->get(); // Returns only users with the role 'writer'
-        return $users;
-    }
-    public function getUsersWithGivenPermission($id)
-    {
-        $permission = Permission::find($id);
-        $users = User::permission($permission->name)->get(); // Returns only users with the permission 'edit articles' (inherited or directly)
-        return $users;
-    }
     ####Check if endpoints####
-    public function userHasPermission($user, $permission)
+    public function userHasPermission(User $user, Permission $permission)
     {
-        $user = user::find($user);
-        $permission = Permission::find($permission);
         //  $x= ($user->hasPermissionTo($request->permission))? 'true': 'false';
         return ($user->hasPermissionTo($permission->name)) ? 'true' : 'false';
     }
 
-    public function userHasRole($user, $role)
+    public function userHasRole(User $user, Role $role)
     {
-        $user = user::find($user);
-        $role = Role::find($role);
         return ($user->hasRole($role->name)) ? 'true' : 'false';
     }
 
-    public function roleHasPermission($role, $permission)
+    public function roleHasPermission(Role $role, Permission $permission)
     {
-        $role = Role::find($role);
-        $permission = Permission::find($permission);
-
         return ($role->hasPermissionTo($permission->name)) ? 'true' : 'false';
     }
     ####Removing endpoints####
-    public function removeUserRole(Request $request, $id)
+    public function destroy(Role $role)
     {
-        $user = User::find($id);
+        // removing role
+        return $role->delete();
+    }
+    public function removeUserRole(Request $request)
+    {
+        $user = User::find($request->user);
         // $user->removeRole($request->role); // removing only one role
         return $user->syncRoles($request->roles); // replace old roles with new ones or none if roles array empty
     }
 
-    public function removeUserPermissions(Request $request, $id)
+    public function removeUserPermissions(Request $request)
     {
-        $user = User::find($id);
+        $user = User::find($request->user);
         $user->revokePermissionTo($request->permissions);
         return $user;
     }
 
-    public function removeRolePermissions(Request $request, $id)
+    public function removeRolePermissions(Request $request)
     {
-        $role = Role::find($id);
+        $role = Role::find($request->role);
         $role->revokePermissionTo($request->permissions);
         return $role;
     }
