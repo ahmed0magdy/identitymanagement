@@ -33,11 +33,11 @@ class APITest extends TestCase
     public function testRoleIsCreatedSuccessfully()
     {
         $this->withoutExceptionHandling();
-        $role = ['name' => 'role test 5'];
+        $role = ['name' => 'role test'];
         $payload =
          [
             'role' => $role['name'],
-            'permissions' => 'test permission that will be given to role',
+            'permissions' => 'client-view',
          ];
         $this->json('post', 'api/roles', $payload)
          ->assertStatus(Response::HTTP_CREATED);
@@ -47,10 +47,9 @@ class APITest extends TestCase
     public function testRoleIsDeletedSuccessfully()
     {
         $this->withoutExceptionHandling();
-        $role = Role::create(['name' => 'roles to be']);
-
+        $role = Role::create(['name' => 'new role for test']);
         $this->json('delete', "api/roles/$role->id")
          ->assertStatus(Response::HTTP_OK);
-        $this->assertDatabaseMissing('roles', ['name' => 'roles to be']);
+        $this->assertDatabaseMissing('roles', ['name' => 'new role for test']);
     }
 }

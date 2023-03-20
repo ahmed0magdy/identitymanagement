@@ -22,21 +22,21 @@ class PermissionTableSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::create(['name' => 'view client']);
-        Permission::create(['name' => 'view all clients']);
-        Permission::create(['name' => 'edit client']);
-        Permission::create(['name' => 'delete client']);
-        Permission::create(['name' => 'create client']);
-        Permission::create(['name' => 'full control client']);
-        Permission::create(['name' => 'grouping client']);
+        Permission::create(['name' => 'client-view']);
+        Permission::create(['name' => 'client-view-all']);
+        Permission::create(['name' => 'client-edit']);
+        Permission::create(['name' => 'client-delete']);
+        Permission::create(['name' => 'client-create']);
+        Permission::create(['name' => 'client-full-control']);
+        Permission::create(['name' => 'client-grouping']);
 
         // create roles and assign created permissions
       //    $role = Role::create(['name' => 'Admin']);
       //    $role->givePermissionTo('full control client');
-        $admin =new User;
-        $admin->name='Admin';
-        $admin->email='Admin@revixir.com';
-        $admin->password=Hash::make('password');
+        $admin = new User();
+        $admin->name = 'Admin';
+        $admin->email = 'Admin@revixir.com';
+        $admin->password = Hash::make('password');
         $admin->save();
         $role = Role::create(['name' => 'super-admin']);
         $role->givePermissionTo(Permission::all());
