@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\TenantController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\TenantController;
+use App\Http\Controllers\AuthApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,3 +60,6 @@ Route::post('role/permission', [RoleController::class, 'removeRolePermissions'])
 
 ####Tenant endpoints####
 Route::post('/create', [TenantController::class,'store']);
+
+Route::get('/auth/google/redirect', [AuthApiController::class, 'googleredirect']);
+Route::get('/auth/google/callback', [AuthApiController::class, 'googlecallaback']);

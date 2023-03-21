@@ -19,6 +19,10 @@ pipelines:
           - apt-get install -qy zlib1g-dev zip unzip libzip-dev libpq-dev
           - pecl install pcov && docker-php-ext-enable pcov
           - docker-php-ext-install zip
+          - apt-get install libldap2-dev -y && \
+            rm -rf /var/lib/apt/lists/* && \
+            docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
+            docker-php-ext-install ldap
 
           #Install Git
           - apt-get install -qy git
@@ -63,7 +67,9 @@ pipelines:
           - touch database/database.sqlite
           - php artisan key:generate
           - php artisan migrate
+          - php artisan db:seed
           - php artisan migrate --env=testing
+          - php artisan db:seed --env=testing
           - php artisan config:cache
           - php artisan config:cache --env=testing
 
