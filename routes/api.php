@@ -19,7 +19,7 @@ use App\Http\Controllers\Auth\SocialiteController;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-   return "hello";
+    return "hello";
 });
 
 Route::post('/create', [TenantController::class, 'store']);
