@@ -10,7 +10,7 @@ use GuzzleHttp\Exception\ClientException;
 
 class SocialiteController extends Controller
 {
-       /**
+    /**
      * Redirect the user to the Provider authentication page.
      *
      * @param $provider
@@ -55,7 +55,7 @@ class SocialiteController extends Controller
                 'status' => true,
             ]
         );
-        
+
         return response()->json([
             "user-data" => $user,
             'status' => true,

@@ -35,7 +35,6 @@ class LdapController extends Controller
                 'message' => 'User Logged In Successfully',
                 // 'token' => $user->createToken('ldap')->plainTextToken
             ], 200);
-
         }
 
         throw ValidationException::withMessages([
