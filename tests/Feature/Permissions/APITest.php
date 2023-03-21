@@ -13,7 +13,14 @@ use Spatie\Permission\Models\Role;
 class APITest extends TestCase
 {
     // use RefreshDatabase;
-
+    private Permission $permission;
+    private Role $role;
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->permission = Permission::updateOrCreate(['name' => 'pipeline-line-permission']);
+        $this->role = Role::updateOrCreate(['name' => 'pipe-line-role']);
+    }
     public function testIndexReturnsDataInValidFormat()
     {
         $this->json('get', 'api/roles')
@@ -37,7 +44,7 @@ class APITest extends TestCase
         $payload =
          [
             'role' => $role['name'],
-            'permissions' => 'client-view',
+            'permissions' => 'pipeline-line-permission',
          ];
         $this->json('post', 'api/roles', $payload)
          ->assertStatus(Response::HTTP_CREATED);
