@@ -14,7 +14,7 @@ use App\Http\Controllers\Auth\LoginController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/get', function () {
+Route::get('/', function () {
     return 'hello web';
 });
 
