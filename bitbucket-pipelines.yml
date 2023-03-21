@@ -16,12 +16,13 @@ pipelines:
           - apt-get update
 
           #Install Zip
-          - apt-get install -qy zlib1g-dev zip unzip libzip-dev libpq-dev php-ldap ldap-utils openldap-dev libldap
+          - apt-get install -qy zlib1g-dev zip unzip libzip-dev libpq-dev
           - pecl install pcov && docker-php-ext-enable pcov
           - docker-php-ext-install zip
-          - docker-php-ext-install php-ldap
-          - docker-php-ext-install ldap
-          - docker-php-ext-enable ldap
+          - apt-get install libldap2-dev -y && \
+            rm -rf /var/lib/apt/lists/* && \
+            docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
+            docker-php-ext-install ldap
 
           #Install Git
           - apt-get install -qy git
