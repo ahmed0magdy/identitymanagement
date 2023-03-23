@@ -23,9 +23,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/create', [TenantController::class, 'store']);
+// Route::middleware('web')->group(function(){
+//     Route::post('login', [LoginController::class, 'login']);
+//     Route::post('ldap', [LdapController::class, 'login']);
+//     Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirectToProvider']);
+//     Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProviderCallback']);
+// });
 
-Route::middleware('web')->post('login', [LoginController::class, 'login']);
-Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirectToProvider']);
-Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProviderCallback']);
-Route::post('/login/ldap', [LdapController::class, 'login']);
+// Route::middleware('auth:sanctum')->post('logout', [LoginController::class, 'logout']);
+
+// Route::middleware('web')->post('login', [LoginController::class, 'login']);
+
+
 // Route::middleware('auth:sanctum')->post('logout', [LoginController::class,'logout']);

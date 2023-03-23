@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LdapController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\SocialiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +23,7 @@ Route::middleware('auth:sanctum')->get('/get', function () {
 });
 
 Route::post('login', [LoginController::class, 'login']);
+Route::post('ldap', [LdapController::class, 'login']);
+Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirectToProvider']);
+Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProviderCallback']);
 Route::middleware('auth:sanctum')->post('logout', [LoginController::class, 'logout']);

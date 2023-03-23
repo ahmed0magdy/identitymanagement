@@ -25,8 +25,8 @@ class LdapController extends Controller
         ];
 
         if (Auth::guard('ldap')->validate($credentials)) {
-            // $user = Auth::guard('ldap')->getLastAttempted();
-            $user = Auth::guard('ldap')->user();
+            $user = Auth::guard('ldap')->getLastAttempted();
+            // $user = Auth::guard('ldap')->user();
 
             return response()->json([
                 "user-data" => $user,

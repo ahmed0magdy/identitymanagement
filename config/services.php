@@ -33,21 +33,8 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-        'redirect' => env('GOOGLE_REDIRECT_URI'),
+        'redirect' => 'http://localhost:8000/auth/google/callback',
     ],
 
-    'microsoft' => [    
-        'client_id' => env('MICROSOFT_CLIENT_ID'),  
-        'client_secret' => env('MICROSOFT_CLIENT_SECRET'),  
-        'redirect' => env('MICROSOFT_REDIRECT_URI') 
-      ],
-
-    'azure' => [    
-        'client_id' => env('AZURE_CLIENT_ID'),
-        'client_secret' => env('AZURE_CLIENT_SECRET'),
-        'redirect' => env('AZURE_REDIRECT_URI'),
-        'tenant' => env('AZURE_TENANT_ID'),
-        'proxy' => env('PROXY')  // optionally
-      ],
 
 ];
