@@ -17,7 +17,7 @@ class TenantCoreTest extends TestCase
         Artisan::call('migrate:fresh --env=testing');
         DB::statement("DROP DATABASE IF EXISTS tenant_{$id}");
 
-        $response = $this->postJson('/api/create', [
+        return $this->postJson('/api/create', [
             'id' => $id,
             'username' => $username,
             'password' => $password,
