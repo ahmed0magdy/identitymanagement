@@ -9,6 +9,20 @@ use Tests\TestCase;
 
 class TenantCoreTest extends TestCase
 {
+    public  function createTenant($id, $domain): \Illuminate\Testing\TestResponse
+    {
+
+        $username = Str::random(6);
+        $password = Str::random(12);
+        Artisan::call('migrate:fresh --env=testing');
+        DB::statement("DROP DATABASE IF EXISTS tenant_{$id}");
+        return $this->postJson('/api/create', [
+         'id' => $id,
+         'username' => $username,
+         'password' => $password,
+         'domain' => $domain,
+        ]);
+    }
     /**
      * A basic test example.
      *
@@ -16,23 +30,11 @@ class TenantCoreTest extends TestCase
      */
     public function testThatTenantIsCreatable(): void
     {
-        $username = Str::random(6);
-        $password = Str::random(12);
-        $id = "d1";
-        $domain = "d1.localhost";
+        $id = "foo";
+        $domain = "foo.localhost";
         $table = "domains";
-
-        Artisan::call('migrate:fresh --env=testing');
-        DB::statement("DROP DATABASE IF EXISTS tenant_{$id}");
-
-        $response = $this->postJson('/api/create', [
-            'id' => $id,
-            'username' => $username,
-            'password' => $password,
-            'domain' => $domain,
-        ]);
+        $response = $this->createTenant($id, $domain);
         $response->assertStatus(201);
-
         $this->assertDatabaseHas($table, ['domain' => $domain, 'tenant_id' => $id]);
     }
 }
