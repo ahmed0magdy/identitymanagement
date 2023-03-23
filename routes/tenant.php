@@ -21,34 +21,29 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 */
 
 //override sanctum's csrf-cookie route to use tenancy initialization middleware
-Route::group(['prefix' => config('sanctum.prefix', 'sanctum')], static function () {
-    Route::get('/csrf-cookie', [CsrfCookieController::class, 'show'])
-        ->middleware([
-            'api',
+Route::prefix('sanctum')->middleware([
+            'web','universal',
             InitializeTenancyByDomain::class // Use tenancy initialization middleware of your choice
-        ])->name('sanctum.csrf-cookie');
-});
+        ])->group(function () {
+            Route::get('/csrf-cookie', [CsrfCookieController::class, 'show'])->name('sanctum.csrf-cookie');
+        });
+
 //universal auth routes for tenant and central domains (e.g. login, logout)
 Route::prefix('api')->middleware([
     'universal',
     InitializeTenancyByDomain::class,
 ])->group(function () {
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::post('/logout', [AuthController::class, 'logout']);
-    });
+    Route::post('/login', [AuthController::class, 'login'])->middleware(['web']);
+    Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum','api']);
 });
 
-//tenant-only routes guarded by sanctum
-Route::prefix('api')->group(function () {
-    Route::middleware([
-        'auth:sanctum',
-        InitializeTenancyByDomain::class, // Use tenancy initialization middleware of your choice
-        PreventAccessFromCentralDomains::class, // Prevent access to central domains
-    ])->group(function () {
-        Route::get('/get', function () {
-            return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
-        });
+//tenant routes guarded by sanctum (only access by tenants)
+Route::prefix('api')->middleware([
+    'api','auth:sanctum',
+    InitializeTenancyByDomain::class,
+    PreventAccessFromCentralDomains::class,
+])->group(function () {
+    Route::get('/', function () {
+        return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
     });
 });
-

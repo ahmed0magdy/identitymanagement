@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TenantController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,5 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+    Route::post('/create', [TenantController::class,'store']);
 
-    Route::post('/create', [TenantController::class,'store'])->middleware('auth:sanctum');
+    Route::get(
+        '/',
+        function () {
+            return "hello";
+        }
+    )->middleware('auth:sanctum');
