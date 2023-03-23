@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 class TenantCoreTest extends TestCase
 {
-    public  function createTenant($id, $domain): \Illuminate\Testing\TestResponse
+    public function createTenant($id, $domain): \Illuminate\Testing\TestResponse
     {
 
         $username = Str::random(6);
