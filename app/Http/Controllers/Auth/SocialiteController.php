@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
-
 class SocialiteController extends Controller
 {
     /**
@@ -43,7 +42,6 @@ class SocialiteController extends Controller
         //     return $validated;
         // }
         try {
-
             $user = Socialite::driver($provider)->user();
             if ($user) {
                 $dbUser = User::UpdateOrcreate(
@@ -54,7 +52,7 @@ class SocialiteController extends Controller
                         'provider' => $provider,
                         'password' => Hash::make(Str::random(10))
                         ]
-                    );
+                );
                     Auth::login($dbUser);
 
                 return response()->json([
@@ -64,7 +62,6 @@ class SocialiteController extends Controller
                     // 'token' => $user->createToken($provider)->plainTextToken
                 ], 200);
             } else {
-
                 return response()->json(['error' => 'Invalid credentials provided.'], 422);
             }
         } catch (Exception $exception) {
