@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class LdapController extends Controller
@@ -24,9 +27,16 @@ class LdapController extends Controller
             'password' => $request->password,
         ];
 
-        if (Auth::guard('ldap')->validate($credentials)) {
+        if (Auth::guard('ldap')->attempt($credentials)) {
             $user = Auth::guard('ldap')->getLastAttempted();
-            // $user = Auth::guard('ldap')->user();
+
+            User::UpdateOrcreate(
+                ['email' => $user->email],
+                [
+                    'provider' => 'ldap',
+                ]
+            );
+            Auth::login($user);
 
             return response()->json([
                 "user-data" => $user,
