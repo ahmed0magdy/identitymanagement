@@ -14,7 +14,7 @@ class LdapUserCannotAuthenticateWithInvalidPasswordTest extends TestCase
 {
     // use DatabaseMigrations;
     use WithFaker;
-    
+
     protected function tearDown(): void
     {
         DirectoryEmulator::tearDown();
