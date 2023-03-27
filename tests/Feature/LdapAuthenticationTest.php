@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Foundation\Testing\WithFaker;
 use LdapRecord\Laravel\Testing\DirectoryEmulator;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -42,8 +41,9 @@ class LdapAuthenticationTest extends TestCase
 
         $user = Auth::user();
 
-        $this->assertInstanceOf(User::class, $user);
-        $this->assertEquals($ldapUser->mail[0], $user->email);
-        $this->assertEquals($ldapUser->cn[0], $user->name);
+        $this->assertDatabaseHas(User::class, [
+            'email' => $ldapUser->mail[0],
+            'name' => $ldapUser->cn[0],
+        ]);
     }
 }
