@@ -22,7 +22,7 @@ class LdapAuthenticationTest extends TestCase
         parent::tearDown();
     }
 
-    public function test_auth_works()
+    public function TestAuthWorks()
     {
         $fake = DirectoryEmulator::setup('default');
 
