@@ -2,18 +2,25 @@
 
 namespace Tests\Feature;
 
+use Tests\TestCase;
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Foundation\Testing\WithFaker;
 use LdapRecord\Laravel\Testing\DirectoryEmulator;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use LdapRecord\Models\ActiveDirectory\User as LdapUser;
-use Tests\TestCase;
 
 class LdapUserCannotAuthenticateWithInvalidPasswordTest extends TestCase
 {
-    use DatabaseMigrations;
+    // use DatabaseMigrations;
     use WithFaker;
+    
+    protected function tearDown(): void
+    {
+        DirectoryEmulator::tearDown();
 
+        parent::tearDown();
+    }
 
     public function testLdapUserCannotAuthenticateWithInvalidPassword()
     {

@@ -2,17 +2,18 @@
 
 namespace Tests\Feature;
 
-use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Auth;
-use LdapRecord\Laravel\Testing\DirectoryEmulator;
-use LdapRecord\Models\ActiveDirectory\User as LdapUser;
 use Tests\TestCase;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Foundation\Testing\WithFaker;
+use LdapRecord\Laravel\Testing\DirectoryEmulator;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use LdapRecord\Models\ActiveDirectory\User as LdapUser;
 
 class LdapAuthenticationTest extends TestCase
 {
-    use DatabaseMigrations;
+    // use DatabaseMigrations;
     use WithFaker;
 
     protected function tearDown(): void
@@ -24,12 +25,12 @@ class LdapAuthenticationTest extends TestCase
 
     public function testAuthWorks()
     {
-        $fake = DirectoryEmulator::setup('default');
+        $fake = DirectoryEmulator::setup();
 
         $ldapUser = LdapUser::create([
             'cn' => $this->faker->name,
             'mail' => $this->faker->email,
-            'guid' => $this->faker->uuid,
+            'objectguid' => $this->faker->uuid,
         ]);
 
         $fake->actingAs($ldapUser);
