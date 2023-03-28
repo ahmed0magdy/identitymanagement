@@ -68,8 +68,10 @@ pipelines:
           #Migrate Database
           - touch database/database.sqlite
           - php artisan key:generate
-          - php artisan migrate:fresh --seed
-          - php artisan migrate:fresh --seed --env=testing
+          - php artisan migrate
+          - php artisan db:seed
+          - php artisan migrate --env=testing
+          - php artisan db:seed --env=testing
           - php artisan config:cache
           - php artisan config:cache --env=testing
 
