@@ -18,8 +18,8 @@ class TenantCoreTest extends TestCase
     {
         $username = "test";
         $password = "SecretGamedAwe69@96";
-        $id = "d1";
-        $domain = "d1.localhost";
+        $id = "foo";
+        $domain = "foo.localhost";
         $table = "domains";
 
         Artisan::call('migrate:fresh --env=testing');

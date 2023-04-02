@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
             PermissionTableSeeder::class,
 
         ]);
+        \App\Models\User::factory(1)->create();
     }
 }

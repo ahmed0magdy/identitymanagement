@@ -63,3 +63,10 @@ Route::post('/create', [TenantController::class,'store']);
 
 Route::get('/auth/google/redirect', [AuthApiController::class, 'googleredirect']);
 Route::get('/auth/google/callback', [AuthApiController::class, 'googlecallaback']);
+
+    Route::get(
+        '/',
+        function () {
+            return "hello";
+        }
+    )->middleware('auth:sanctum');
