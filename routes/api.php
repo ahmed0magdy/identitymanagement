@@ -19,34 +19,6 @@ use App\Http\Controllers\RoleController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return "hello";
-});
-
-Route::post('/create', [TenantController::class, 'store']);
-// Route::middleware('web')->group(function(){
-//     Route::post('login', [LoginController::class, 'login']);
-//     Route::post('ldap', [LdapController::class, 'login']);
-//     Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirectToProvider']);
-//     Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProviderCallback']);
-// });
-
-// Route::middleware('auth:sanctum')->post('logout', [LoginController::class, 'logout']);
-
-// Route::middleware('web')->post('login', [LoginController::class, 'login']);
-
-
-// Route::middleware('auth:sanctum')->post('logout', [LoginController::class,'logout']);
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-// Route::group(['middleware' => ['auth']], function()
-// {
-//     Route::resource('roles', RoleController::class);
-//     });
-
-// Route::resource('roles', RoleController::class);
 
 ####Getting endpoints####
 Route::get('roles', [RoleController::class, 'index']);
@@ -82,9 +54,3 @@ Route::post('role/permission', [RoleController::class, 'removeRolePermissions'])
 Route::post('/create', [TenantController::class,'store']);
 
 
-    Route::get(
-        '/',
-        function () {
-            return "hello";
-        }
-    )->middleware('auth:sanctum');

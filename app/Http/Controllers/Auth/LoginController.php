@@ -18,74 +18,41 @@ class LoginController extends Controller
      * @return User
      */
     public function login(Request $request)
-    {
-        try {
-            $validateUser = Validator::make(
-                $request->all(),
-                [
-                    'email' => 'required|email',
-                    'password' => 'required'
-                ]
-            );
+{
+    $rules = [
+        'email' => 'required|email',
+        'password' => 'required',
+    ];
 
-            if ($validateUser->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'validation error',
-                    'errors' => $validateUser->errors()
-                ], 401);
-            }
+    $validator = Validator::make($request->all(), $rules);
 
-            if (!Auth::attempt($request->only(['email', 'password']))) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Email & Password does not match with our record.',
-                ], 401);
-            }
-            $user = User::where('email', $request->email)->first();
-
-            $request->session()->regenerate(); //session fixation
-            if ($user) {
-                $dbUser = User::UpdateOrcreate(
-                    ['email' => $user->email],
-                    [
-                        'name' => $user->name,
-                        'email' => $user->email,
-                        'provider' => 'basic',
-                        'password' => Hash::make(Str::random(10))
-                    ]
-                );
-                Auth::login($dbUser);
-            } else {
-                return response()->json(['error' => 'Invalid credentials provided.'], 422);
-            }
-
-            return response()->json([
-                'message' => 'Successfully logged in',
-                'user' => Auth::user(),
-            ]);
-
-            // return response()->json([
-            //     'status' => true,
-            //     'message' => 'User Logged In Successfully',
-            //     'token' => $user->createToken("API TOKEN")->plainTextToken
-            // ], 200);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'status' => false,
-                'message' => $th->getMessage()
-            ], 500);
-        }
+    if ($validator->fails()) {
+        return response()->json([
+            'status' => false,
+            'message' => 'validation error',
+            'errors' => $validator->errors(),
+        ], 401);
     }
 
-    // public function logout()
-    // {
-    //     auth()->user()->tokens()->delete();
-    //     return [
-    //         'message' => 'user logged out'
-    //     ];
+    $credentials = $request->only(['email', 'password']);
+    if (!Auth::attempt($credentials)) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Email & Password do not match our records.',
+        ], 401);
+    }
 
-    // }
+    $user = Auth::user();
+    $user->provider = 'basic';
+    $user->save();
+
+    $request->session()->regenerate(); // session fixation
+
+    return response()->json([
+        'message' => 'Successfully logged in',
+        'user' => $user,
+    ]);
+}
 
 
     /**

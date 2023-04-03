@@ -21,11 +21,6 @@ class AddLdapColumnsToUsersTable extends Migration
             $table->string('domain')->nullable();
         });
 
-        if ($driver === 'sqlsrv') {
-            DB::statement(
-                $this->compileUniqueSqlServerIndexStatement('users', 'guid')
-            );
-        }
     }
 
     /**

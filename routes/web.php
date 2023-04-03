@@ -15,15 +15,3 @@ use App\Http\Controllers\Auth\SocialiteController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return 'hello web';
-});
-Route::middleware('auth:sanctum')->get('/get', function () {
-    return 'hello web';
-});
-
-Route::post('login', [LoginController::class, 'login']);
-Route::post('ldap', [LdapController::class, 'login']);
-Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirectToProvider']);
-Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProviderCallback']);
-Route::middleware('auth:sanctum')->post('logout', [LoginController::class, 'logout']);

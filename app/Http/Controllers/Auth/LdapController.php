@@ -42,7 +42,6 @@ class LdapController extends Controller
                 "user-data" => $user,
                 'status' => true,
                 'message' => 'User Logged In Successfully',
-                // 'token' => $user->createToken('ldap')->plainTextToken
             ], 200);
         }
 
