@@ -19,8 +19,17 @@ class AddLdapColumnsToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) use ($driver) {
             $table->string('guid')->nullable();
             $table->string('domain')->nullable();
+
+            if ($driver !== 'sqlsrv') {
+                $table->unique('guid');
+            }
         });
 
+        if ($driver === 'sqlsrv') {
+            DB::statement(
+                $this->compileUniqueSqlServerIndexStatement('users', 'guid')
+            );
+        }
     }
 
     /**
