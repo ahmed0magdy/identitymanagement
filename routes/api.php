@@ -52,5 +52,3 @@ Route::post('role/permission', [RoleController::class, 'removeRolePermissions'])
 
 ####Tenant endpoints####
 Route::post('/create', [TenantController::class,'store']);
-
-

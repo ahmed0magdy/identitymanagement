@@ -18,41 +18,41 @@ class LoginController extends Controller
      * @return User
      */
     public function login(Request $request)
-{
-    $rules = [
+    {
+        $rules = [
         'email' => 'required|email',
         'password' => 'required',
-    ];
+        ];
 
-    $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), $rules);
 
-    if ($validator->fails()) {
-        return response()->json([
+        if ($validator->fails()) {
+            return response()->json([
             'status' => false,
             'message' => 'validation error',
             'errors' => $validator->errors(),
-        ], 401);
-    }
+            ], 401);
+        }
 
-    $credentials = $request->only(['email', 'password']);
-    if (!Auth::attempt($credentials)) {
-        return response()->json([
+        $credentials = $request->only(['email', 'password']);
+        if (!Auth::attempt($credentials)) {
+            return response()->json([
             'status' => false,
             'message' => 'Email & Password do not match our records.',
-        ], 401);
-    }
+            ], 401);
+        }
 
-    $user = Auth::user();
-    $user->provider = 'basic';
-    $user->save();
+        $user = Auth::user();
+        $user->provider = 'basic';
+        $user->save();
 
-    $request->session()->regenerate(); // session fixation
+        $request->session()->regenerate(); // session fixation
 
-    return response()->json([
+        return response()->json([
         'message' => 'Successfully logged in',
         'user' => $user,
-    ]);
-}
+        ]);
+    }
 
 
     /**
