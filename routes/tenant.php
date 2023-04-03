@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
-use Laravel\Sanctum\Http\Controllers\CsrfCookieController;
+use App\Http\Controllers\Auth\LdapController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\SocialiteController;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
+use Laravel\Sanctum\Http\Controllers\CsrfCookieController;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 /*
@@ -33,8 +35,12 @@ Route::prefix('api')->middleware([
     'universal',
     InitializeTenancyByDomain::class,
 ])->group(function () {
-    Route::post('/login', [AuthController::class, 'login'])->middleware(['web']);
-    Route::post('/logout', [AuthController::class, 'logout'])->middleware(['auth:sanctum','api']);
+    Route::post('/login', [LoginController::class, 'login'])->middleware(['web']);
+    Route::post('ldap', [LdapController::class, 'login'])->middleware(['web']);
+    Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirectToProvider'])->middleware(['web']);
+    Route::get('/auth/{provider}/callback', [SocialiteController::class, 'handleProviderCallback'])->middleware(['web']);
+
+    Route::post('/logout', [LoginController::class, 'logout'])->middleware(['auth:sanctum','api']);
 });
 
 //tenant routes guarded by sanctum (only access by tenants)

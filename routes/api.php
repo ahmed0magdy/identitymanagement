@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\TenantController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TenantController;
+use App\Http\Controllers\Auth\LdapController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\AuthApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,17 +18,6 @@ use App\Http\Controllers\AuthApiController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-// Route::group(['middleware' => ['auth']], function()
-// {
-//     Route::resource('roles', RoleController::class);
-//     });
-
-// Route::resource('roles', RoleController::class);
 
 ####Getting endpoints####
 Route::get('roles', [RoleController::class, 'index']);
@@ -61,12 +52,8 @@ Route::post('role/permission', [RoleController::class, 'removeRolePermissions'])
 ####Tenant endpoints####
 Route::post('/create', [TenantController::class,'store']);
 
-Route::get('/auth/google/redirect', [AuthApiController::class, 'googleredirect']);
-Route::get('/auth/google/callback', [AuthApiController::class, 'googlecallaback']);
-
-    Route::get(
-        '/',
-        function () {
-            return "hello";
-        }
-    )->middleware('auth:sanctum');
+Route::get('/', function () {
+    return response()->json([
+        'message' => 'Welcome to revixir',
+    ]);
+});
