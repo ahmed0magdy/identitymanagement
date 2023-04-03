@@ -15,3 +15,8 @@ use App\Http\Controllers\Auth\SocialiteController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function () {
+    return response()->json([
+        'message' => 'Welcome to revixir',
+    ]);
+});

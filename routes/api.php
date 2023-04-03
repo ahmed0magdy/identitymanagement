@@ -19,7 +19,6 @@ use App\Http\Controllers\RoleController;
 |
 */
 
-
 ####Getting endpoints####
 Route::get('roles', [RoleController::class, 'index']);
 Route::get('permissions/{role}', [RoleController::class, 'show']);
@@ -52,3 +51,9 @@ Route::post('role/permission', [RoleController::class, 'removeRolePermissions'])
 
 ####Tenant endpoints####
 Route::post('/create', [TenantController::class,'store']);
+
+Route::get('/', function () {
+    return response()->json([
+        'message' => 'Welcome to revixir',
+    ]);
+});

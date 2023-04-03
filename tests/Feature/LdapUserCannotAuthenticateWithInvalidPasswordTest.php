@@ -31,7 +31,7 @@ class LdapUserCannotAuthenticateWithInvalidPasswordTest extends TestCase
             'mail' => 'john@local.com',
         ]);
 
-        $this->postJson('ldap', [
+        $this->postJson('api/ldap', [
             'email' => $ldapUser->mail[0],
             'password' => 'secret',
             'device_name' => 'browser',

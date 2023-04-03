@@ -34,7 +34,7 @@ class LdapAuthenticationTest extends TestCase
 
         $fake->actingAs($ldapUser);
 
-        $this->post('/ldap', [
+        $this->post('api/ldap', [
             'email' => $ldapUser->mail[0],
             'password' => 'secret',
         ]);
