@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CdType extends Model
+class CdValue extends Model
 {
     use HasFactory;
 
@@ -19,10 +19,11 @@ class CdType extends Model
         'rwCreatedDT',
         'rwModifiedDT',
         'rwModifiedSessionID',
+        'tableName',
+        'weight'
     ];
 
-    public function cdValues()
-    {
-        return $this->hasMany(CdValue::class, 'cdTypeUID');
+    public function cdType(){
+        return $this->belongsTo(CdType::class, 'cdTypeUID');
     }
 }
