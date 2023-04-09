@@ -64,3 +64,6 @@ Route::get('/', function () {
 Route::get('/cdtypes', [CdTypeController::class,'getAllCdTypes']);
 Route::get('/cdtypes/{cdType}', [CdTypeController::class,'getCdTypeById']);
 
+Route::get('/cdvalues', [CdTypeController::class,'getAllCdValues']);
+Route::get('/cdvalues/{cdValue}', [CdTypeController::class,'getCdValuesById']);
+Route::get('/cdtypes/values/{cdType}', [CdTypeController::class,'getCdValuesByType']);
