@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
 
             PermissionTableSeeder::class,
+            CdTypesCdValuesSeeder::class,
 
         ]);
         \App\Models\User::factory(1)->create();
