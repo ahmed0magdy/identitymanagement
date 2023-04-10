@@ -24,9 +24,7 @@ class CdTypesCdValuesSeeder extends Seeder
             'internalShortCode' => 1,
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
-            'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => ''
+            'rwCreatedDT' => now()
         ]);
         CdValue::create([
             'cdTypeUID' => $cdType1->id,
@@ -37,9 +35,7 @@ class CdTypesCdValuesSeeder extends Seeder
             'internalShortCode' => 1,
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
-            'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => ''
+            'rwCreatedDT' => now()
         ]);
 
         CdValue::create([
@@ -51,9 +47,7 @@ class CdTypesCdValuesSeeder extends Seeder
             'internalShortCode' => 2,
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
-            'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => ''
+            'rwCreatedDT' => now()
         ]);
         CdValue::create([
             'cdTypeUID' => $cdType1->id,
@@ -64,9 +58,7 @@ class CdTypesCdValuesSeeder extends Seeder
             'internalShortCode' => 3,
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
-            'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => ''
+            'rwCreatedDT' => now()
         ]);
 
         CdValue::create([
@@ -78,9 +70,7 @@ class CdTypesCdValuesSeeder extends Seeder
             'internalShortCode' => 4,
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
-            'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => ''
+            'rwCreatedDT' => now()
         ]);
 
         CdValue::create([
@@ -92,9 +82,7 @@ class CdTypesCdValuesSeeder extends Seeder
             'internalShortCode' => 5,
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
-            'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => ''
+            'rwCreatedDT' => now()
         ]);
 
         CdValue::create([
@@ -106,9 +94,7 @@ class CdTypesCdValuesSeeder extends Seeder
             'internalShortCode' => 6,
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
-            'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => ''
+            'rwCreatedDT' => now()
         ]);
 
         CdValue::create([
@@ -120,9 +106,7 @@ class CdTypesCdValuesSeeder extends Seeder
             'internalShortCode' => 7,
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
-            'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => ''
+            'rwCreatedDT' => now()
         ]);
         CdValue::create([
             'cdTypeUID' => $cdType1->id,
@@ -133,9 +117,7 @@ class CdTypesCdValuesSeeder extends Seeder
             'internalShortCode' => 8,
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
-            'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => ''
+            'rwCreatedDT' => now()
         ]);
         CdValue::create([
             'cdTypeUID' => $cdType1->id,
@@ -146,9 +128,7 @@ class CdTypesCdValuesSeeder extends Seeder
             'internalShortCode' => 9,
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
-            'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => ''
+            'rwCreatedDT' => now()
         ]);
 
         CdValue::create([
@@ -160,9 +140,7 @@ class CdTypesCdValuesSeeder extends Seeder
             'internalShortCode' => 10,
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
-            'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => ''
+            'rwCreatedDT' => now()
         ]);
         CdValue::create([
             'cdTypeUID' => $cdType1->id,
@@ -173,9 +151,7 @@ class CdTypesCdValuesSeeder extends Seeder
             'internalShortCode' => 11,
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
-            'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => ''
+            'rwCreatedDT' => now()
         ]);
 
 
@@ -188,9 +164,7 @@ class CdTypesCdValuesSeeder extends Seeder
             'internalShortCode' => 2,
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
-            'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => ''
+            'rwCreatedDT' => now()
         ]);
 
         CdValue::create([
@@ -202,9 +176,7 @@ class CdTypesCdValuesSeeder extends Seeder
             'internalShortCode' => 1,
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
-            'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => ''
+            'rwCreatedDT' => now()
         ]);
 
         CdValue::create([
@@ -216,9 +188,7 @@ class CdTypesCdValuesSeeder extends Seeder
             'internalShortCode' => 2,
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
-            'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => ''
+            'rwCreatedDT' => now()
         ]);
 
         CdValue::create([
@@ -230,9 +200,7 @@ class CdTypesCdValuesSeeder extends Seeder
             'internalShortCode' => 3,
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
-            'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => ''
+            'rwCreatedDT' => now()
         ]);
 
         CdValue::create([
@@ -244,9 +212,7 @@ class CdTypesCdValuesSeeder extends Seeder
             'internalShortCode' => 4,
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
-            'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => ''
+            'rwCreatedDT' => now()
         ]);
         // type 3 values
 
@@ -258,8 +224,6 @@ class CdTypesCdValuesSeeder extends Seeder
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
             'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => '',
         ]);
 
         CdValue::create([
@@ -271,9 +235,7 @@ class CdTypesCdValuesSeeder extends Seeder
             'internalShortCode' => 1,
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
-            'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => ''
+            'rwCreatedDT' => now()
         ]);
 
         CdValue::create([
@@ -285,9 +247,7 @@ class CdTypesCdValuesSeeder extends Seeder
             'internalShortCode' => 2,
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
-            'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => ''
+            'rwCreatedDT' => now()
         ]);
 
         CdValue::create([
@@ -299,9 +259,7 @@ class CdTypesCdValuesSeeder extends Seeder
             'internalShortCode' => 3,
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1,
-            'rwCreatedDT' => now(),
-            'rwModifiedDT' => '',
-            'rwModifiedSessionID' => ''
+            'rwCreatedDT' => now()
         ]);
     }
 }
