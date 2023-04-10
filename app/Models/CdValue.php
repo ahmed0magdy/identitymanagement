@@ -23,7 +23,8 @@ class CdValue extends Model
         'weight'
     ];
 
-    public function cdType(){
+    public function cdType()
+    {
         return $this->belongsTo(CdType::class, 'cdTypeUID');
     }
 }
