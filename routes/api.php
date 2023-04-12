@@ -6,7 +6,7 @@ use App\Http\Controllers\TenantController;
 use App\Http\Controllers\Auth\LdapController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SocialiteController;
-use App\Http\Controllers\CdTypeController;
+use App\Http\Controllers\CdTypeValueController;
 use App\Http\Controllers\RoleController;
 
 /*
@@ -61,7 +61,7 @@ Route::get('/', function () {
 
 ######CdType endpoints #######
 
-Route::get('/cdtypes', [CdTypeController::class,'getAllCdTypes']);
+Route::get('/cdtypes', [CdTypeValueController::class,'getAllCdTypes']);
 Route::get('/cdtypes/{cdType}', [CdTypeController::class,'getCdTypeById']);
 
 Route::get('/cdvalues', [CdTypeController::class,'getAllCdValues']);

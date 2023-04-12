@@ -6,7 +6,7 @@ use App\Models\CdType;
 use App\Models\CdValue;
 use Illuminate\Http\Request;
 
-class CdTypeController extends Controller
+class CdTypeValueController extends Controller
 {
     /**
      * Display a listing of the resource.
