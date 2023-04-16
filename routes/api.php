@@ -6,6 +6,7 @@ use App\Http\Controllers\TenantController;
 use App\Http\Controllers\Auth\LdapController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\CdTypeValueController;
 use App\Http\Controllers\RoleController;
 
 /*
@@ -57,3 +58,12 @@ Route::get('/', function () {
         'message' => 'Welcome to revixir',
     ]);
 });
+
+######CdType endpoints #######
+
+Route::get('/cdtypes', [CdTypeValueController::class,'getAllCdTypes']);
+Route::get('/cdtypes/{cdType}', [CdTypeValueController::class,'getCdTypeById']);
+
+Route::get('/cdvalues', [CdTypeValueController::class,'getAllCdValues']);
+Route::get('/cdvalues/{cdValue}', [CdTypeValueController::class,'getCdValuesById']);
+Route::get('/cdtypes/values/{cdType}', [CdTypeValueController::class,'getCdValuesByType']);
