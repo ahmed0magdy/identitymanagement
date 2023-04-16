@@ -16,7 +16,7 @@ class CdTypeValueController extends Controller
      // CdValues endpoints
     public function getAllCdTypes()
     {
-        return CdType::paginate(15);
+        return CdType::paginate(50);
     }
 
 
@@ -28,7 +28,7 @@ class CdTypeValueController extends Controller
     // CdValues endpoints
     public function getAllCdValues()
     {
-        return CdValue::paginate(15);
+        return CdValue::paginate(50);
     }
 
     public function getCdValuesById(CdValue $cdValue)
