@@ -31,9 +31,9 @@ return new class extends Migration
            $table->foreign('cdTypeUID')->references('id')->on('cd_types');
         });
 
-        Artisan::call('db:seed', [
-            '--class' => 'CdTypesCdValuesSeeder',
-        ]);
+        // Artisan::call('db:seed', [
+        //     '--class' => 'CdTypesCdValuesSeeder',
+        // ]);
     }
 
     /**
