@@ -14,13 +14,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
         $this->call([
 
             PermissionTableSeeder::class,
             CdTypesCdValuesSeeder::class,
 
         ]);
+        \App\Models\Organization::factory(10)->create();
+        \App\Models\Application::factory(10)->create();
+        \App\Models\IdentifierDefinition::factory(10)->create();
+        \App\Models\IdentifierIssuer::factory(10)->create();
         \App\Models\User::factory(1)->create();
     }
 }

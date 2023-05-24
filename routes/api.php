@@ -2,12 +2,14 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\Auth\LdapController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\CdTypeValueController;
-use App\Http\Controllers\RoleController;
+use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\IdentifierIssuerController;
+use App\Http\Controllers\IdentifierDefinitionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,3 +69,10 @@ Route::get('/cdtypes/{cdType}', [CdTypeValueController::class,'getCdTypeById']);
 Route::get('/cdvalues', [CdTypeValueController::class,'getAllCdValues']);
 Route::get('/cdvalues/{cdValue}', [CdTypeValueController::class,'getCdValuesById']);
 Route::get('/cdtypes/values/{cdType}', [CdTypeValueController::class,'getCdValuesByType']);
+
+Route::apiResource('identifierDefinition', IdentifierDefinitionsController::class);
+Route::apiResource('IdentifierIss', IdentifierIssuerController::class);
+
+Route::post('issuerbydef', [IdentifierIssuerController::class,'showByFilters']);
+Route::post('identifiers', [IdentifierIssuerController::class,'saveIdentifiers']);
+

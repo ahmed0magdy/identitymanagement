@@ -142,7 +142,6 @@ class CdTypesCdValuesSeeder extends Seeder
             'rwCreatedSessionID' => 1
         ]);
 
-
         //type 2 values
 
         $cdType2 = CdType::create([
@@ -240,5 +239,63 @@ class CdTypesCdValuesSeeder extends Seeder
             'rwStatusCd' => 1,
             'rwCreatedSessionID' => 1
         ]);
+
+        // type 4 values
+        $cdType4 = CdType::create([
+            'internalKey' => 'System.Class_Level',
+            'displayName' => 'Entity Class Level',
+            'description' => 'System Entity Class Level',
+            'internalShortCode' => 5,
+            'rwStatusCd' => 1,
+            'rwCreatedSessionID' => 1
+        ]);
+
+        CdValue::create([
+            'cdTypeUID' => $cdType4->id,
+            'weight' => 0,
+            'internalKey' => 'Org',
+            'displayName' => 'Organization',
+            'description' => 'Person',
+            'internalShortCode' => 1,
+            'tableName' => 'organizations',
+            'rwStatusCd' => 1,
+            'rwCreatedSessionID' => 1
+        ]);
+
+        CdValue::create([
+            'cdTypeUID' => $cdType4->id,
+            'weight' => 0,
+            'internalKey' => 'App',
+            'displayName' => 'Application',
+            'description' => 'Application',
+            'internalShortCode' => 3,
+            'tableName' => 'applications',
+            'rwStatusCd' => 1,
+            'rwCreatedSessionID' => 1
+        ]);
+        CdValue::create([
+            'cdTypeUID' => $cdType4->id,
+            'weight' => 0,
+            'internalKey' => 'Usr',
+            'displayName' => 'User',
+            'description' => 'User',
+            'internalShortCode' => 9,
+            'tableName' => 'users',
+            'rwStatusCd' => 1,
+            'rwCreatedSessionID' => 1
+        ]);
+
+        CdValue::create([
+            'cdTypeUID' => $cdType4->id,
+            'weight' => 0,
+            'internalKey' => 'Pyr',
+            'displayName' => 'Payor',
+            'description' => 'Payor',
+            'internalShortCode' => 29,
+            'tableName' => 'payors',
+            'rwStatusCd' => 1,
+            'rwCreatedSessionID' => 1
+        ]);
+
     }
 }
